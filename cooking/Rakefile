@@ -4,11 +4,12 @@ require_relative 'cooking'
 namespace :cooking do
 
   #Adding a desc means that our task will show up in rake -T
-  desc "Make breakfast! usage:'rake cooking:breakfast['Customer Name']'"
+  # EGGS is an optional environment variable passed in
+  desc "Make breakfast! usage:'rake EGGS=3 cooking:breakfast['Customer Name']'"
 
   #breakfast expects a customer param and depends on three other
   #tasks before it can start
-  task :breakfast, [:customer] => [:orange_juice,:ham,:eggs] do |t,args|
+  task :breakfast, [:customer] => [:orange_juice, :ham, :eggs] do |t,args|
 
     #We can have some default args
     args.with_defaults(:customer => 'Anonymous')
@@ -19,7 +20,7 @@ namespace :cooking do
 
   #Tasks without desc are not shown in rake -T
   task :eggs do
-    Cooking.cook_eggs
+    Cooking.cook_eggs ENV["EGGS"] || 2
   end
 
   task :ham do
@@ -32,5 +33,10 @@ namespace :cooking do
 
   task :pick_oranges do
     puts "Off to the orange grove!"
+  end
+
+  # We can reopen and extend tasks
+  task :pick_oranges do
+    puts "Picking Oranges..."
   end
 end

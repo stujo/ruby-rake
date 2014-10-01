@@ -1,6 +1,6 @@
 module Cooking
-  def self.cook_eggs
-    print "Cooking eggs..."
+  def self.cook_eggs egg_count
+    print "Cooking #{egg_count} eggs..."
     sleep(0.3)
     puts "...cooked!"
   end
