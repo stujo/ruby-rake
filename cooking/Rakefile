@@ -5,6 +5,9 @@ namespace :cooking do
 
   #Adding a desc means that our task will show up in rake -T
   desc "Make breakfast! usage:'rake cooking:breakfast['Customer Name']'"
+
+  #breakfast expects a customer param and depends on three other
+  #tasks before it can start
   task :breakfast, [:customer] => [:orange_juice,:ham,:eggs] do |t,args|
 
     #We can have some default args
