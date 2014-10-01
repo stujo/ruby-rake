@@ -1,0 +1,33 @@
+require_relative 'cooking'
+
+#namespace keeps our task separate from others
+namespace :cooking do
+
+  #Adding a desc means that our task will show up in rake -T
+  desc "Make breakfast! usage:'rake cooking:breakfast['Customer Name']'"
+  task :breakfast, [:customer] => [:orange_juice,:ham,:eggs] do |t,args|
+
+    #We can have some default args
+    args.with_defaults(:customer => 'Anonymous')
+    
+    #And we can use the args
+    puts "Here's #{args.customer}'s breakfast!!!"
+  end
+
+  #Tasks without desc are not shown in rake -T
+  task :eggs do
+    Cooking.cook_eggs
+  end
+
+  task :ham do
+    Cooking.slice_ham
+  end
+
+  task :orange_juice =>[:pick_oranges] do
+    Cooking.squeeze_oranges
+  end
+
+  task :pick_oranges do
+    puts "Off to the orange grove!"
+  end
+end
