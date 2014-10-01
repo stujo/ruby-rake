@@ -1,0 +1,24 @@
+namespace :demo do
+
+  desc "Run demo"
+  task :run do
+    require_relative 'demo'
+    Demo.run
+  end
+
+  desc "Run demo with code coverage"
+  task :coverage do
+    require "simplecov"
+
+    #Remove Old Reports
+    rm_rf "coverage/"
+
+    SimpleCov.start do
+      project_name "Demo"
+      command_name "Demo Run"
+    end
+
+    Rake::Task['demo:run'].execute
+    puts "To open report files use: open coverage/index.html"
+  end
+end
